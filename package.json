@@ -1,0 +1,32 @@
+{
+  "name": "namaste-food",
+  "version": "1.0.0",
+  "description": "This is Namaste food by Aastha",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aasthapandey/Namaste-food.git"
+  },
+  "keywords": [
+    "react",
+    "food"
+  ],
+  "author": "Aastha Pandey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aasthapandey/Namaste-food/issues"
+  },
+  "homepage": "https://github.com/aasthapandey/Namaste-food#readme",
+  "devDependencies": {
+    "parcel": "^2.9.3"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
+}
