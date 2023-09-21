@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "This is Namaste food by Aastha",
   "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
     "test": "jest"
   },
   "repository": {
@@ -20,7 +22,8 @@
   },
   "homepage": "https://github.com/aasthapandey/Namaste-food#readme",
   "devDependencies": {
-    "parcel": "^2.9.3"
+    "parcel": "^2.9.3",
+    "process": "^0.11.10"
   },
   "dependencies": {
     "react": "^18.2.0",
