@@ -1,15 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withVegLabel } from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { useContext } from "react";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
   const [searchText, setSearchtext] = useState("");
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+
+  const RestaurantCardVeg = withVegLabel(RestaurantCard);
 
   useEffect(() => {
     fetchData();
@@ -22,10 +26,10 @@ const Body = () => {
 
     const json = await data.json();
     setListOfRestaurant(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setFilteredRestaurant(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
 
@@ -37,6 +41,8 @@ const Body = () => {
         Looks like you're offline!!!! Please check your internet connection
       </h1>
     );
+
+  const { loggedInUser, setUserName } = useContext(UserContext);
 
   return listOfRestaurant.length === 0 ? (
     <Shimmer />
@@ -80,6 +86,14 @@ const Body = () => {
             Top Rated Restaurants
           </button>
         </div>
+        <div className="search m-4 p-4 flex items-center">
+          <label className="mx-2">UserName</label>
+          <input
+            className="p-2 border border-black"
+            value={loggedInUser}
+            onChange={(e) => setUserName(e.target.value)}
+          ></input>
+        </div>
       </div>
       <div className="flex flex-wrap">
         {filteredRestaurant.map((restaurant) => (
@@ -87,7 +101,14 @@ const Body = () => {
             key={restaurant.info.id}
             to={"/restaurants/" + restaurant.info.id}
           >
-            <RestaurantCard resData={restaurant} />
+            {
+              /* if a restaurant is veg then write veg label on it */
+              restaurant.info.veg ? (
+                <RestaurantCardVeg resData={restaurant} />
+              ) : (
+                <RestaurantCard resData={restaurant} />
+              )
+            }
           </Link>
         ))}
       </div>
